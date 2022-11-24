@@ -16,6 +16,7 @@ specifiers:
   eslint: 8.28.0
   eslint-config-prettier: 8.5.0
   eslint-plugin-prettier: 4.2.1
+  git-commit-msg-linter: ^4.2.1
   husky: ^8.0.0
   jest: 29.3.1
   prettier: 2.8.0
@@ -51,6 +52,7 @@ devDependencies:
   eslint: 8.28.0
   eslint-config-prettier: 8.5.0_eslint@8.28.0
   eslint-plugin-prettier: 4.2.1_cwlo2dingkvfydnaculr42urve
+  git-commit-msg-linter: 4.2.1
   husky: 8.0.2
   jest: 29.3.1_odkjkoia5xunhxkdrka32ib6vi
   prettier: 2.8.0
@@ -2108,6 +2110,13 @@ packages:
       wrappy: 1.0.2
     dev: true
 
+  /did-you-mean/0.0.1:
+    resolution: {integrity: sha512-rKxPpbrHr4/u8VMPde6Z3DhbGoXw7kepHZIU2FGs+IU+LKnhEIlw1cx80FZ7fLruJXDyu0slKMai2FhPRZjwxQ==}
+    dependencies:
+      levenshtein: 1.0.5
+      underscore: 1.13.6
+    dev: true
+
   /diff-sequences/29.3.1:
     resolution: {integrity: sha512-hlM3QR272NXCi4pq+N4Kok4kOp6EsgOM3ZSpJI7Da3UAs+Ttsi8MRmB6trM/lhyzUxGfOgnpkHtgqm5Q/CTcfQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -2672,6 +2681,16 @@ packages:
   /get-stream/6.0.1:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
     engines: {node: '>=10'}
+    dev: true
+
+  /git-commit-msg-linter/4.2.1:
+    resolution: {integrity: sha512-4iw0N0Sdga5wWN527/Oei6wkQGuWBhUEioonaM3HcaddEP8rYQPApGvfNvCkA+spd0wo59ToK+9DgHaHu1mAqg==}
+    engines: {node: '>= 8.0.0'}
+    requiresBuild: true
+    dependencies:
+      chalk: 2.4.2
+      did-you-mean: 0.0.1
+      supports-color: 8.1.1
     dev: true
 
   /glob-parent/5.1.2:
@@ -3498,6 +3517,11 @@ packages:
   /leven/3.1.0:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}
     engines: {node: '>=6'}
+    dev: true
+
+  /levenshtein/1.0.5:
+    resolution: {integrity: sha512-UQf1nnmxjl7O0+snDXj2YF2r74Gkya8ZpnegrUBYN9tikh2dtxV/ey8e07BO5wwo0i76yjOvbDhFHdcPEiH9aA==}
+    engines: {'0': node >=0.2.0}
     dev: true
 
   /levn/0.4.1:
@@ -4663,6 +4687,10 @@ packages:
     resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
+    dev: true
+
+  /underscore/1.13.6:
+    resolution: {integrity: sha512-+A5Sja4HP1M08MaXya7p5LvjuM7K6q/2EaC0+iovj/wOcMsTzMvDFbasi/oSapiwOlt252IqsKqPjCl7huKS0A==}
     dev: true
 
   /universalify/2.0.0:
