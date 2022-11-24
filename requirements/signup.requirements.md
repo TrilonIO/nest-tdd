@@ -1,7 +1,9 @@
 # Signup endpoint
 
 **Endpoint**: /signup
+
 **Method**: POST
+
 **Body**:
 
 ```json
