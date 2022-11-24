@@ -1,5 +1,7 @@
 # Signup endpoint
 
+Endpoint used to signup a user in our system.
+
 **Endpoint**: /signup
 
 **Method**: POST
@@ -17,10 +19,10 @@
 
 ## Success case
 
-1. ✅ Returns 200 with id of the new user.
+1. ✅ Returns 200 with the new user’s id.
 
 ## Exceptions:
 
-1. ⛔ returns **400** when the password and passwordConfirmation don't match.
-1. ⛔ returns **400** when the email is invalid.
-1. ⛔ returns **409** when the email already exists.
+1. ⛔ Returns **400** when the password and passwordConfirmation don't match.
+1. ⛔ Returns **400** when the email is invalid.
+1. ⛔ Returns **409** when the email already exists.
