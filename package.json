@@ -20,6 +20,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
+    "test:staged": "jest --onlyChanged",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prepare": "husky install"
@@ -48,6 +49,7 @@
     "git-commit-msg-linter": "4.2.1",
     "husky": "^8.0.0",
     "jest": "29.3.1",
+    "lint-staged": "13.0.3",
     "prettier": "2.8.0",
     "source-map-support": "0.5.21",
     "supertest": "6.3.1",
