@@ -12,6 +12,10 @@ export class AppointmentService {
   public scheduleAppointment(
     appointmentData: AppointmentInput,
   ): AppointmentModel {
+    if (appointmentData.endTime < appointmentData.startTime) {
+      throw new Error("appointment's endTime should be after startTime");
+    }
+
     return {
       ...appointmentData,
       confirmed: false,
