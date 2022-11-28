@@ -46,4 +46,17 @@ describe('AppointmentService', () => {
       }),
     ).toThrowError("appointment's endTime should be after startTime");
   });
+
+  it('should throw an error when end time is equal to start time', async () => {
+    const startTime = new Date('2022-01-01T14:00:00Z');
+    const endTime = startTime;
+
+    expect(() =>
+      service.scheduleAppointment({
+        patientId: 1,
+        startTime,
+        endTime,
+      }),
+    ).toThrowError("appointment's endTime should be after startTime");
+  });
 });
