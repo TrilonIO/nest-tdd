@@ -29,9 +29,14 @@ export class AppointmentService {
   }
 
   private endTimeIsInTheNextDay(appointmentData: AppointmentInput): boolean {
-    return (
+    const differentDays =
       appointmentData.endTime.getUTCDate() !==
-      appointmentData.startTime.getUTCDate()
-    );
+      appointmentData.startTime.getUTCDate();
+
+    const differentMonths =
+      appointmentData.endTime.getUTCMonth() !==
+      appointmentData.startTime.getUTCMonth();
+
+    return differentDays || differentMonths;
   }
 }
