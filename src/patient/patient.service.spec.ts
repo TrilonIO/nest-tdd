@@ -1,15 +1,28 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PatientService } from './patient.service';
+import { InMemoryPatientRepository } from './repositories/in-memory-patient.repository';
+import { SavePatientRepository } from './repositories/save-patient.repository';
 
 describe('PatientService', () => {
   let service: PatientService;
+  let module: TestingModule;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [PatientService],
+    module = await Test.createTestingModule({
+      providers: [
+        PatientService,
+        {
+          provide: SavePatientRepository,
+          useClass: InMemoryPatientRepository,
+        },
+      ],
     }).compile();
 
     service = module.get<PatientService>(PatientService);
+  });
+
+  afterEach(() => {
+    module.close();
   });
 
   it('should be defined', () => {
