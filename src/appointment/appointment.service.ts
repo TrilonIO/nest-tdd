@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { PatientByIdRepository } from '../patient/repositories/patient-by-id.repository';
 import { AppointmentModel } from './appointment.model';
 
 export interface AppointmentInput {
@@ -9,9 +10,11 @@ export interface AppointmentInput {
 
 @Injectable()
 export class AppointmentService {
-  public scheduleAppointment(
+  constructor(private readonly patientByIdRepository: PatientByIdRepository) {}
+
+  public async scheduleAppointment(
     appointmentData: AppointmentInput,
-  ): AppointmentModel {
+  ): Promise<AppointmentModel> {
     if (appointmentData.endTime <= appointmentData.startTime) {
       throw new Error("appointment's endTime should be after startTime");
     }
@@ -20,6 +23,14 @@ export class AppointmentService {
       throw new Error(
         "appointment's endTime should be in the same day as start time's",
       );
+    }
+
+    const patientExists = await this.patientByIdRepository.findById(
+      appointmentData.patientId,
+    );
+
+    if (!patientExists) {
+      throw new Error('Patient does not exist');
     }
 
     return {
