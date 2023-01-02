@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PatientService } from './patient.service';
 import { InMemoryPatientRepository } from './repositories/in-memory-patient.repository';
+import { PatientByIdRepository } from './repositories/patient-by-id.repository';
 import { SavePatientRepository } from './repositories/save-patient.repository';
 
 describe('PatientService', () => {
@@ -13,6 +14,10 @@ describe('PatientService', () => {
         PatientService,
         {
           provide: SavePatientRepository,
+          useClass: InMemoryPatientRepository,
+        },
+        {
+          provide: PatientByIdRepository,
           useClass: InMemoryPatientRepository,
         },
       ],
@@ -37,6 +42,18 @@ describe('PatientService', () => {
         id: expect.any(Number),
         name: 'John Doe',
       });
+    });
+
+    it('should save a new patient record in the database', async () => {
+      // Arrange
+      const patientByIdRepository = module.get(PatientByIdRepository);
+
+      // Act
+      const newPatient = await service.register({ name: 'John Doe' });
+
+      // Assert
+      const savedPatient = await patientByIdRepository.findById(newPatient.id);
+      expect(savedPatient).toEqual(newPatient);
     });
   });
 });
