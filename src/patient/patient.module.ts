@@ -3,6 +3,7 @@ import { PatientService } from './patient.service';
 import { InMemoryPatientRepository } from './repositories/in-memory-patient.repository';
 import { PatientByIdRepository } from './repositories/patient-by-id.repository';
 import { SavePatientRepository } from './repositories/save-patient.repository';
+import { PatientController } from './patient.controller';
 
 @Module({
   providers: [
@@ -17,5 +18,6 @@ import { SavePatientRepository } from './repositories/save-patient.repository';
     },
   ],
   exports: [PatientService, PatientByIdRepository],
+  controllers: [PatientController],
 })
 export class PatientModule {}
