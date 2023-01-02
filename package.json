@@ -28,9 +28,14 @@
     "@nestjs/common": "9.2.0",
     "@nestjs/core": "9.2.0",
     "@nestjs/platform-express": "9.2.0",
+    "@nestjs/sequelize": "9.0.0",
+    "pg": "8.8.0",
+    "postgres": "^3.3.2",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
-    "rxjs": "7.5.7"
+    "rxjs": "7.5.7",
+    "sequelize": "6.28.0",
+    "sequelize-typescript": "2.1.5"
   },
   "devDependencies": {
     "@nestjs/cli": "9.1.5",
