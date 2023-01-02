@@ -25,6 +25,7 @@ export class SequelizePatientRepository
 
   async findById(id: number): Promise<PatientModel> {
     const patientInDb = await this.patientModel.findByPk(id);
-    return patientInDb.get();
+
+    return patientInDb?.get();
   }
 }

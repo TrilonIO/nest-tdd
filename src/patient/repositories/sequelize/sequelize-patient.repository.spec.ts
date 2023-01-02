@@ -79,5 +79,18 @@ describe('SequelizePatientRepository', () => {
       // Assert
       expect(foundPatient).toEqual(patientInDatabase.get());
     });
+
+    it('should return undefined when patient does not exist', async () => {
+      // Arrange
+      const nonexistentPatientId = 1;
+
+      // Act
+      const foundPatient = await patientRepository.findById(
+        nonexistentPatientId,
+      );
+
+      // Assert
+      expect(foundPatient).toBeUndefined();
+    });
   });
 });
