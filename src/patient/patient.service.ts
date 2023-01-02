@@ -7,7 +7,7 @@ export interface PatientInput {
 
 @Injectable()
 export class PatientService {
-  register(patientData: PatientInput): PatientModel {
+  public async register(patientData: PatientInput): Promise<PatientModel> {
     return {
       id: 1,
       name: patientData.name,
