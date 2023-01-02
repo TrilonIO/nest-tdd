@@ -8,17 +8,24 @@ import {
 export class InMemoryPatientRepository
   implements SavePatientRepository, PatientByIdRepository
 {
+  private lastId = 0;
+
+  constructor(private patients: PatientModel[] = []) {}
+
   async findById(id: number): Promise<PatientModel> {
-    return {
-      name: 'John Doe',
-      id,
-    };
+    return this.patients.find((patient) => patient.id === id);
   }
 
   async save(patientData: SavePatientData): Promise<PatientModel> {
-    return {
+    this.lastId++;
+
+    const newPatient = {
       name: patientData.name,
-      id: 1,
+      id: this.lastId,
     };
+
+    this.patients.push(newPatient);
+
+    return newPatient;
   }
 }

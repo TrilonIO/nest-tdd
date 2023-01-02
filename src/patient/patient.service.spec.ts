@@ -9,16 +9,18 @@ describe('PatientService', () => {
   let module: TestingModule;
 
   beforeEach(async () => {
+    const inMemoryPatientsRepository = new InMemoryPatientRepository();
+
     module = await Test.createTestingModule({
       providers: [
         PatientService,
         {
           provide: SavePatientRepository,
-          useClass: InMemoryPatientRepository,
+          useValue: inMemoryPatientsRepository,
         },
         {
           provide: PatientByIdRepository,
-          useClass: InMemoryPatientRepository,
+          useValue: inMemoryPatientsRepository,
         },
       ],
     }).compile();
