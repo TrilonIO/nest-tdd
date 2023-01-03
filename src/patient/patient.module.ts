@@ -1,14 +1,23 @@
 import { Module } from '@nestjs/common';
+import { SequelizeModule } from '@nestjs/sequelize';
 import { PatientService } from './patient.service';
 import {
   inMemoryClearPatientsRepositoryProvider,
   inMemoryPatientByIdRepositoryProvider,
   inMemorySavePatientRepositoryProvider,
 } from './providers/in-memory-patient-repository.provider';
+import {
+  sequelizeSavePatientRepositoryProvider,
+  sequelizePatientByIdRepositoryProvider,
+  sequelizeClearPatientsRepositoryProvider,
+} from './providers/sequelize-patient-repository.provider';
+import { SequelizePatient } from './repositories/sequelize/sequelize-patient.model';
+import { PatientController } from './patient.controller';
 
 @Module({
   providers: [PatientService],
   exports: [PatientService],
+  controllers: [PatientController],
 })
 export class PatientModule {
   static inMemory() {
@@ -20,6 +29,19 @@ export class PatientModule {
         inMemoryClearPatientsRepositoryProvider,
       ],
       exports: [inMemoryClearPatientsRepositoryProvider],
+    };
+  }
+
+  static usingDatabase() {
+    return {
+      module: PatientModule,
+      imports: [SequelizeModule.forFeature([SequelizePatient])],
+      providers: [
+        sequelizeSavePatientRepositoryProvider,
+        sequelizePatientByIdRepositoryProvider,
+        sequelizeClearPatientsRepositoryProvider,
+      ],
+      exports: [sequelizeClearPatientsRepositoryProvider],
     };
   }
 }
