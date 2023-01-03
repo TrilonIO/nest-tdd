@@ -113,7 +113,7 @@ describe('AppointmentService', () => {
     );
   });
 
-  it.skip('should throw an error when the patient does not exist', async () => {
+  it('should throw an error when the patient does not exist', async () => {
     const startTime = new Date('2022-01-01T14:00:00Z');
     const endTime = new Date('2022-01-01T15:00:00Z');
 
