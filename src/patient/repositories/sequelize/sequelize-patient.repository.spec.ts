@@ -61,4 +61,21 @@ describe('SequelizePatientRepository', () => {
       expect(patient).toEqual(patientInDatabase.get());
     });
   });
+
+  describe('findById', () => {
+    it('should return an existing patient by id', async () => {
+      // Arrange
+      const patientData = { name: 'John Doe' };
+      const sequelizePatientModel = module.get(getModelToken(SequelizePatient));
+      const patientInDatabase = await sequelizePatientModel.create(patientData);
+
+      // Act
+      const foundPatient = await patientRepository.findById(
+        patientInDatabase.id,
+      );
+
+      // Assert
+      expect(foundPatient).toEqual(patientInDatabase.get());
+    });
+  });
 });
