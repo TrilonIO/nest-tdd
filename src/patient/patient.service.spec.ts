@@ -26,4 +26,13 @@ describe('PatientService', () => {
       });
     });
   });
+
+  describe('doesPatientExist', () => {
+    it('should return false when no patient was registered', async () => {
+      const patientId = 1;
+      const exists = await service.doesPatientExist(patientId);
+
+      expect(exists).toBe(false);
+    });
+  });
 });
