@@ -1,5 +1,6 @@
 import { InjectModel } from '@nestjs/sequelize';
 import { PatientModel } from '../../patient.model';
+import { ClearPatientsRepository } from '../clear-patients.repository';
 import { PatientByIdRepository } from '../patient-by-id.repository';
 import {
   PatientInput,
@@ -8,7 +9,10 @@ import {
 import { SequelizePatient } from './sequelize-patient.model';
 
 export class SequelizePatientRepository
-  implements SavePatientRepository, PatientByIdRepository
+  implements
+    SavePatientRepository,
+    PatientByIdRepository,
+    ClearPatientsRepository
 {
   constructor(
     @InjectModel(SequelizePatient)
@@ -27,5 +31,11 @@ export class SequelizePatientRepository
     const patientInDb = await this.patientModel.findByPk(patientId);
 
     return patientInDb?.get();
+  }
+
+  public async clear(): Promise<void> {
+    await this.patientModel.truncate({
+      restartIdentity: true,
+    });
   }
 }

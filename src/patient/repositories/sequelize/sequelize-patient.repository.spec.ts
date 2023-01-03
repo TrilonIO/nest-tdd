@@ -91,4 +91,21 @@ describe('SequelizePatientRepository', () => {
       expect(foundPatient).toBeUndefined();
     });
   });
+
+  describe('clear', () => {
+    it('should clear all patients', async () => {
+      // Arrange
+      const patientData = { name: 'John Doe' };
+      const sequelizePatientModel = module.get(getModelToken(SequelizePatient));
+      await sequelizePatientModel.create(patientData);
+
+      // Act
+      await patientRepository.clear();
+
+      // Assert
+      const patientsInDatabase = await sequelizePatientModel.findAll();
+
+      expect(patientsInDatabase).toHaveLength(0);
+    });
+  });
 });
