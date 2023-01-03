@@ -15,4 +15,15 @@ describe('PatientService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  describe('register', () => {
+    it('should return a new patient with given name', async () => {
+      const newPatient = await service.register({ name: 'John Doe' });
+
+      expect(newPatient).toEqual({
+        id: expect.any(Number),
+        name: 'John Doe',
+      });
+    });
+  });
 });
