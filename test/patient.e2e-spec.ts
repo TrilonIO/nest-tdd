@@ -17,8 +17,8 @@ describe('Patients (e2e)', () => {
     await app.init();
   });
 
-  afterEach(() => {
-    return app.close();
+  afterEach(async () => {
+    await app.close();
   });
 
   describe('/patients/{id} (GET)', () => {

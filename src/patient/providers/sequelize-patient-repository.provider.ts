@@ -13,10 +13,10 @@ export const sequelizeSavePatientRepositoryProvider: Provider = {
 
 export const sequelizePatientByIdRepositoryProvider: Provider = {
   provide: PATIENT_BY_ID_REPOSITORY,
-  useValue: SequelizePatientRepository,
+  useClass: SequelizePatientRepository,
 };
 
 export const sequelizeClearPatientsRepositoryProvider: Provider = {
   provide: CLEAR_PATIENTS_REPOSITORY,
-  useValue: SequelizePatientRepository,
+  useClass: SequelizePatientRepository,
 };
