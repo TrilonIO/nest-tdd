@@ -12,7 +12,7 @@ describe('AppointmentService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [PatientModule],
+      imports: [PatientModule.inMemory()],
       providers: [AppointmentService],
     }).compile();
 

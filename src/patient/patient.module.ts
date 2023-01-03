@@ -4,15 +4,22 @@ import {
   inMemoryClearPatientsRepositoryProvider,
   inMemoryPatientByIdRepositoryProvider,
   inMemorySavePatientRepositoryProvider,
-} from './repositories/in-memory-patient-repository.provider';
+} from './providers/in-memory-patient-repository.provider';
 
 @Module({
-  providers: [
-    PatientService,
-    inMemorySavePatientRepositoryProvider,
-    inMemoryPatientByIdRepositoryProvider,
-    inMemoryClearPatientsRepositoryProvider,
-  ],
-  exports: [PatientService, inMemoryClearPatientsRepositoryProvider],
+  providers: [PatientService],
+  exports: [PatientService],
 })
-export class PatientModule {}
+export class PatientModule {
+  static inMemory() {
+    return {
+      module: PatientModule,
+      providers: [
+        inMemorySavePatientRepositoryProvider,
+        inMemoryPatientByIdRepositoryProvider,
+        inMemoryClearPatientsRepositoryProvider,
+      ],
+      exports: [inMemoryClearPatientsRepositoryProvider],
+    };
+  }
+}

@@ -4,7 +4,7 @@ import {
   PATIENT_BY_ID_REPOSITORY,
   SAVE_PATIENT_REPOSITORY,
 } from '../constants';
-import { InMemoryPatientRepository } from './in-memory-patient.repository';
+import { InMemoryPatientRepository } from '../repositories/in-memory-patient.repository';
 
 const inMemoryPatientRepository = new InMemoryPatientRepository();
 

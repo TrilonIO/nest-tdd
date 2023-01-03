@@ -5,7 +5,7 @@ import { AppointmentService } from './appointment/appointment.service';
 import { PatientModule } from './patient/patient.module';
 
 @Module({
-  imports: [PatientModule],
+  imports: [PatientModule.inMemory()],
   controllers: [AppController],
   providers: [AppService, AppointmentService],
 })

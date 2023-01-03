@@ -10,7 +10,7 @@ describe('PatientService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [PatientModule],
+      imports: [PatientModule.inMemory()],
     }).compile();
 
     service = module.get<PatientService>(PatientService);
