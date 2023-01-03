@@ -28,7 +28,7 @@ describe('AppointmentService', () => {
       name: 'John Doe',
     });
 
-    const newAppointment = service.scheduleAppointment({
+    const newAppointment = await service.scheduleAppointment({
       patientId,
       startTime,
       endTime,
@@ -46,39 +46,39 @@ describe('AppointmentService', () => {
     const startTime = new Date('2022-01-01T14:00:00Z');
     const endTime = new Date('2022-01-01T13:00:00Z');
 
-    expect(() =>
+    await expect(
       service.scheduleAppointment({
         patientId: 1,
         startTime,
         endTime,
       }),
-    ).toThrowError("appointment's endTime should be after startTime");
+    ).rejects.toThrowError("appointment's endTime should be after startTime");
   });
 
   it('should throw an error when end time is equal to start time', async () => {
     const startTime = new Date('2022-01-01T14:00:00Z');
     const endTime = startTime;
 
-    expect(() =>
+    await expect(
       service.scheduleAppointment({
         patientId: 1,
         startTime,
         endTime,
       }),
-    ).toThrowError("appointment's endTime should be after startTime");
+    ).rejects.toThrowError("appointment's endTime should be after startTime");
   });
 
   it('should throw an error when end time is in the next day', async () => {
     const startTime = new Date('2022-01-01T14:00:00Z');
     const endTime = new Date('2022-01-02T00:00:00Z');
 
-    expect(() =>
+    await expect(
       service.scheduleAppointment({
         patientId: 1,
         startTime,
         endTime,
       }),
-    ).toThrowError(
+    ).rejects.toThrowError(
       "appointment's endTime should be in the same day as start time's",
     );
   });
@@ -87,13 +87,13 @@ describe('AppointmentService', () => {
     const startTime = new Date('2022-01-01T14:00:00Z');
     const endTime = new Date('2022-02-01T14:00:00Z');
 
-    expect(() =>
+    await expect(
       service.scheduleAppointment({
         patientId: 1,
         startTime,
         endTime,
       }),
-    ).toThrowError(
+    ).rejects.toThrowError(
       "appointment's endTime should be in the same day as start time's",
     );
   });
@@ -102,13 +102,13 @@ describe('AppointmentService', () => {
     const startTime = new Date('2022-01-01T14:00:00Z');
     const endTime = new Date('2023-01-01T14:00:00Z');
 
-    expect(() =>
+    await expect(
       service.scheduleAppointment({
         patientId: 1,
         startTime,
         endTime,
       }),
-    ).toThrowError(
+    ).rejects.toThrowError(
       "appointment's endTime should be in the same day as start time's",
     );
   });
