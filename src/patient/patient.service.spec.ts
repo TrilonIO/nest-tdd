@@ -1,15 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { CLEAR_PATIENTS_REPOSITORY } from './constants';
+import { PatientModule } from './patient.module';
 import { PatientService } from './patient.service';
+import { ClearPatientsRepository } from './repositories/clear-patients.repository';
 
 describe('PatientService', () => {
   let service: PatientService;
+  let clearPatientsRepository: ClearPatientsRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [PatientService],
+      imports: [PatientModule],
     }).compile();
 
     service = module.get<PatientService>(PatientService);
+    clearPatientsRepository = module.get(CLEAR_PATIENTS_REPOSITORY);
+  });
+
+  afterEach(async () => {
+    await clearPatientsRepository.clear();
   });
 
   it('should be defined', () => {

@@ -1,11 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { CLEAR_PATIENTS_REPOSITORY } from '../patient/constants';
 import { PatientModule } from '../patient/patient.module';
 import { PatientService } from '../patient/patient.service';
+import { ClearPatientsRepository } from '../patient/repositories/clear-patients.repository';
 import { AppointmentService } from './appointment.service';
 
 describe('AppointmentService', () => {
   let service: AppointmentService;
   let patientService: PatientService;
+  let clearPatientsRepository: ClearPatientsRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -15,6 +18,11 @@ describe('AppointmentService', () => {
 
     service = module.get<AppointmentService>(AppointmentService);
     patientService = module.get(PatientService);
+    clearPatientsRepository = module.get(CLEAR_PATIENTS_REPOSITORY);
+  });
+
+  afterEach(async () => {
+    await clearPatientsRepository.clear();
   });
 
   it('should be defined', () => {
