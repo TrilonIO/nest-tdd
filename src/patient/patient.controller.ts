@@ -10,6 +10,11 @@ export class PatientController {
   public async getPatientById(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<PatientModel> {
-    return await this.patientByIdRepository.findById(id);
+    const patient = await this.patientByIdRepository.findById(id);
+
+    return {
+      id: patient.id,
+      name: patient.name,
+    };
   }
 }

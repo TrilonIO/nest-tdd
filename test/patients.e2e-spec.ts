@@ -16,6 +16,10 @@ describe('Patients (e2e)', () => {
     await app.init();
   });
 
+  afterEach(() => {
+    return app.close();
+  });
+
   describe('/patients/{id} (GET)', () => {
     it('should return an existing patient on success', async () => {
       const savePatientRepository = app.get(SavePatientRepository);
