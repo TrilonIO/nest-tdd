@@ -1,8 +1,8 @@
-import { PatientModel } from '../patient.model';
+import { Patient } from '../patient.model';
 
 export interface PatientInput {
   name: string;
 }
 export interface SavePatientRepository {
-  save(patientData: PatientInput): Promise<PatientModel>;
+  save(patientInput: PatientInput): Promise<Patient>;
 }

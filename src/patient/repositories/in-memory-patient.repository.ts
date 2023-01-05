@@ -1,4 +1,4 @@
-import { PatientModel } from '../patient.model';
+import { Patient } from '../patient.model';
 import { ClearPatientsRepository } from './clear-patients.repository';
 import { PatientByIdRepository } from './patient-by-id.repository';
 import { PatientInput, SavePatientRepository } from './save-patient.repository';
@@ -9,10 +9,10 @@ export class InMemoryPatientRepository
     PatientByIdRepository,
     ClearPatientsRepository
 {
-  private readonly patients: PatientModel[] = [];
+  private readonly patients: Patient[] = [];
   private nextId = 1;
 
-  public async save(patientData: PatientInput): Promise<PatientModel> {
+  public async save(patientData: PatientInput): Promise<Patient> {
     const newPatient = {
       id: this.nextId++,
       name: patientData.name,
@@ -23,7 +23,7 @@ export class InMemoryPatientRepository
     return newPatient;
   }
 
-  public async findById(patientId: number): Promise<PatientModel> {
+  public async findById(patientId: number): Promise<Patient> {
     return this.patients.find((patient) => patient.id === patientId);
   }
 

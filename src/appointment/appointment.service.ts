@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PatientService } from '../patient/patient.service';
-import { AppointmentModel } from './appointment.model';
+import { Appointment } from './appointment.model';
 
 export interface AppointmentInput {
   patientId: number;
@@ -14,7 +14,7 @@ export class AppointmentService {
 
   public async scheduleAppointment(
     appointmentData: AppointmentInput,
-  ): Promise<AppointmentModel> {
+  ): Promise<Appointment> {
     if (appointmentData.endTime <= appointmentData.startTime) {
       throw new Error("appointment's endTime should be after startTime");
     }
