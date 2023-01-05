@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PatientModel } from './patient.model';
+import { Patient } from './patient.model';
 
 export interface PatientInput {
   name: string;
@@ -7,10 +7,10 @@ export interface PatientInput {
 
 @Injectable()
 export class PatientService {
-  private readonly patients: PatientModel[] = [];
+  private readonly patients: Patient[] = [];
   private nextId = 1;
 
-  public async register(patientInput: PatientInput): Promise<PatientModel> {
+  public async register(patientInput: PatientInput): Promise<Patient> {
     const newPatient = {
       id: this.nextId++,
       name: patientInput.name,

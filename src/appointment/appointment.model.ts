@@ -1,4 +1,4 @@
-export interface AppointmentModel {
+export interface Appointment {
   patientId: number;
   startTime: Date;
   endTime: Date;
