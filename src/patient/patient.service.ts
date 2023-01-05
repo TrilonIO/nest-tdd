@@ -10,10 +10,10 @@ export class PatientService {
   private readonly patients: PatientModel[] = [];
   private nextId = 1;
 
-  public async register(patientData: PatientInput): Promise<PatientModel> {
+  public async register(patientInput: PatientInput): Promise<PatientModel> {
     const newPatient = {
       id: this.nextId++,
-      name: patientData.name,
+      name: patientInput.name,
     };
 
     this.patients.push(newPatient);
