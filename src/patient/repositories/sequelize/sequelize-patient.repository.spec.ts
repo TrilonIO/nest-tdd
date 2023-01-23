@@ -94,9 +94,11 @@ describe('SequelizePatientRepository', () => {
   describe('clear', () => {
     it('should clear all patients', async () => {
       // Arrange
-      const patientData = { name: 'John Doe' };
       const sequelizePatientModel = module.get(getModelToken(SequelizePatient));
-      await sequelizePatientModel.create(patientData);
+      await sequelizePatientModel.bulkCreate([
+        { name: 'John Doe' },
+        { name: 'John Doe 2' },
+      ]);
 
       // Act
       await patientRepository.clear();
