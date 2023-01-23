@@ -66,8 +66,7 @@ describe('SequelizePatientRepository', () => {
     it('should return an existing patient by id', async () => {
       // Arrange
       const patientData = { name: 'John Doe' };
-      const sequelizePatientModel = module.get(getModelToken(SequelizePatient));
-      const patientInDatabase = await sequelizePatientModel.create(patientData);
+      const patientInDatabase = await patientRepository.save(patientData);
 
       // Act
       const foundPatient = await patientRepository.findById(
@@ -75,7 +74,7 @@ describe('SequelizePatientRepository', () => {
       );
 
       // Assert
-      expect(foundPatient).toEqual(patientInDatabase.get());
+      expect(foundPatient).toEqual(patientInDatabase);
     });
 
     it('should return undefined when patient does not exist', async () => {
