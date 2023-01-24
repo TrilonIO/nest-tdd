@@ -5,6 +5,8 @@ import { PatientModel } from './patient.model';
 @Controller('patients')
 export class PatientsController {
   private readonly patients: PatientModel[] = [];
+  private nextId = 1;
+
   @Post()
   public async registerPatient(
     @Body() registerPatientInput: RegisterPatientDto,
@@ -20,7 +22,7 @@ export class PatientsController {
     }
 
     const newPatient = {
-      id: 1,
+      id: this.nextId++,
       name: registerPatientInput.name,
       email: registerPatientInput.email,
     };

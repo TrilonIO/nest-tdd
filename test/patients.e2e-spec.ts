@@ -98,5 +98,23 @@ describe('AppController (e2e)', () => {
         error: 'Email john@doe.com is already in use',
       });
     });
+
+    test('Different patients must have different unique identifiers', async () => {
+      const patient1 = await request(app.getHttpServer())
+        .post('/patients')
+        .send({
+          name: 'John Doe',
+          email: 'john@doe.com',
+        });
+
+      const patient2 = await request(app.getHttpServer())
+        .post('/patients')
+        .send({
+          name: 'Jane Doe',
+          email: 'jane@doe.com',
+        });
+
+      expect(patient1.body.id).not.toBe(patient2.body.id);
+    });
   });
 });
