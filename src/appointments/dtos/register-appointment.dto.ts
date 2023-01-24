@@ -1,8 +1,19 @@
-import { IsDate } from 'class-validator';
+import { IsDateString } from 'class-validator';
 
 export class RegisterAppointmentDto {
-  @IsDate({
-    message: 'startTime must be a valid date',
-  })
+  @IsDateString(
+    {},
+    {
+      message: 'startTime must be a valid date',
+    },
+  )
   startTime: Date;
+
+  @IsDateString(
+    {},
+    {
+      message: 'endTime must be a valid date',
+    },
+  )
+  endTime: Date;
 }
