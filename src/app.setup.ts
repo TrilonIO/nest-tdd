@@ -15,6 +15,7 @@ export function setupApp(app: INestApplication): void {
             body: errors.flatMap((error) => Object.values(error.constraints)),
           },
         }),
+      stopAtFirstError: true,
     }),
   );
 }

@@ -18,7 +18,7 @@ describe('Appointments (e2e)', () => {
     await app.init();
   });
 
-  describe('when registering a new appointment', () => {
+  describe('When registering a new appointment', () => {
     test('Start time is required', async () => {
       return request(app.getHttpServer())
         .post('/appointments')
