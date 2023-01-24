@@ -1,12 +1,20 @@
-import { BadRequestException, Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 
 @Controller('patients')
 export class PatientsController {
   @Post()
-  public async registerPatient() {
+  public async registerPatient(@Body() registerPatientInput: any) {
+    if (!registerPatientInput.name) {
+      throw new BadRequestException({
+        errors: {
+          body: ['name is required'],
+        },
+      });
+    }
+
     throw new BadRequestException({
       errors: {
-        body: ['name is required'],
+        body: ['email is required'],
       },
     });
   }

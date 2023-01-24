@@ -30,5 +30,20 @@ describe('AppController (e2e)', () => {
         },
       });
     });
+
+    test('the email is required', () => {
+      return request(app.getHttpServer())
+        .post('/patients')
+        .send({
+          name: 'John Doe',
+          email: '',
+        })
+        .expect(400)
+        .expect({
+          errors: {
+            body: ['email is required'],
+          },
+        });
+    });
   });
 });
