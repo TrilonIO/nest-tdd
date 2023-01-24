@@ -63,5 +63,20 @@ describe('Appointments (e2e)', () => {
           },
         });
     });
+
+    test('End time must be a valid date', async () => {
+      return request(app.getHttpServer())
+        .post('/appointments')
+        .send({
+          startTime: new Date(),
+          endTime: 'not-a-date',
+        })
+        .expect(400)
+        .expect({
+          errors: {
+            body: ['endTime must be a valid date'],
+          },
+        });
+    });
   });
 });
