@@ -113,5 +113,21 @@ describe('Appointments (e2e)', () => {
           },
         });
     });
+
+    test('The given patient must exist', async () => {
+      const nonenxistentPatientId = 1;
+
+      return request(app.getHttpServer())
+        .post('/appointments')
+        .send({
+          startTime: new Date(),
+          endTime: new Date(),
+          patientId: nonenxistentPatientId,
+        })
+        .expect(400)
+        .expect({
+          error: `Patient with id ${nonenxistentPatientId} does not exist`,
+        });
+    });
   });
 });

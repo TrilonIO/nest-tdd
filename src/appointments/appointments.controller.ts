@@ -14,6 +14,9 @@ export class AppointmentsController {
         },
       });
     }
-    registerAppointmentDto;
+
+    throw new BadRequestException({
+      error: `Patient with id ${registerAppointmentDto.patientId} does not exist`,
+    });
   }
 }
