@@ -17,18 +17,17 @@ describe('AppController (e2e)', () => {
 
   describe('when registering a new patient', () => {
     test('the name is required', async () => {
-      const response = await request(app.getHttpServer())
+      return request(app.getHttpServer())
         .post('/patients')
         .send({
           name: '',
+        })
+        .expect(400)
+        .expect({
+          errors: {
+            body: ['name is required'],
+          },
         });
-
-      expect(response.statusCode).toBe(400);
-      expect(response.body).toEqual({
-        errors: {
-          body: ['name is required'],
-        },
-      });
     });
 
     test('the email is required', () => {
