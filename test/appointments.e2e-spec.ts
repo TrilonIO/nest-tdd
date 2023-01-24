@@ -78,5 +78,20 @@ describe('Appointments (e2e)', () => {
           },
         });
     });
+
+    test('Start time must be before end time', async () => {
+      return request(app.getHttpServer())
+        .post('/appointments')
+        .send({
+          startTime: new Date(),
+          endTime: new Date('2020-01-01'),
+        })
+        .expect(400)
+        .expect({
+          errors: {
+            body: ['startTime must be before endTime'],
+          },
+        });
+    });
   });
 });
