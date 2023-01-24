@@ -16,7 +16,7 @@ describe('AppController (e2e)', () => {
   });
 
   describe('when registering a new patient', () => {
-    test('the name is required', async () => {
+    test('The name is required', async () => {
       return request(app.getHttpServer())
         .post('/patients')
         .send({
@@ -30,7 +30,7 @@ describe('AppController (e2e)', () => {
         });
     });
 
-    test('the email is required', () => {
+    test('The email is required', () => {
       return request(app.getHttpServer())
         .post('/patients')
         .send({
@@ -43,6 +43,22 @@ describe('AppController (e2e)', () => {
             body: ['email is required'],
           },
         });
+    });
+
+    test('A new patient is created on success', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/patients')
+        .send({
+          name: 'John Doe',
+          email: 'john@doe.com',
+        })
+        .expect(201);
+
+      expect(response.body).toEqual({
+        id: expect.any(Number),
+        name: 'John Doe',
+        email: 'john@doe.com',
+      });
     });
   });
 });

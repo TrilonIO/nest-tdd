@@ -12,10 +12,18 @@ export class PatientsController {
       });
     }
 
-    throw new BadRequestException({
-      errors: {
-        body: ['email is required'],
-      },
-    });
+    if (!registerPatientInput.email) {
+      throw new BadRequestException({
+        errors: {
+          body: ['email is required'],
+        },
+      });
+    }
+
+    return {
+      id: 1,
+      name: registerPatientInput.name,
+      email: registerPatientInput.email,
+    };
   }
 }
