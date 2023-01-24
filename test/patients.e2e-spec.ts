@@ -24,6 +24,7 @@ describe('AppController (e2e)', () => {
         .post('/patients')
         .send({
           name: '',
+          email: 'john@doe.com',
         })
         .expect(400)
         .expect({

@@ -12,7 +12,7 @@ export function setupApp(app: INestApplication): void {
       exceptionFactory: (errors: ValidationError[]) =>
         new BadRequestException({
           errors: {
-            body: errors.map((error) => error.value()),
+            body: errors.flatMap((error) => Object.values(error.constraints)),
           },
         }),
     }),
