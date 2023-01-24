@@ -24,13 +24,21 @@ export class SequelizePatientRepository
       name: patientData.name,
     });
 
-    return patientInDb.get();
+    return {
+      id: patientInDb.id,
+      name: patientInDb.name,
+    };
   }
 
   public async findById(patientId: number): Promise<PatientModel> {
     const patientInDb = await this.patientModel.findByPk(patientId);
 
-    return patientInDb?.get();
+    if (patientInDb) {
+      return {
+        id: patientInDb.id,
+        name: patientInDb.name,
+      };
+    }
   }
 
   public async clear(): Promise<void> {

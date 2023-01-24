@@ -53,12 +53,17 @@ describe('SequelizePatientRepository', () => {
       const patient = await patientRepository.save(patientData);
 
       // Assert
-      const sequelizePatientModel = module.get(getModelToken(SequelizePatient));
+      const sequelizePatientModel = module.get<typeof SequelizePatient>(
+        getModelToken(SequelizePatient),
+      );
       const patientInDatabase = await sequelizePatientModel.findByPk(
         patient.id,
       );
 
-      expect(patient).toEqual(patientInDatabase.get());
+      expect(patient).toEqual({
+        id: patientInDatabase.id,
+        name: patientInDatabase.name,
+      });
     });
   });
 
@@ -74,7 +79,10 @@ describe('SequelizePatientRepository', () => {
       );
 
       // Assert
-      expect(foundPatient).toEqual(patientInDatabase);
+      expect(foundPatient).toEqual({
+        id: patientInDatabase.id,
+        name: patientInDatabase.name,
+      });
     });
 
     it('should return undefined when patient does not exist', async () => {
