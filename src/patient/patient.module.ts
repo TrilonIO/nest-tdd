@@ -13,6 +13,7 @@ import {
 } from './providers/sequelize-patient-repository.provider';
 import { SequelizePatient } from './repositories/sequelize/sequelize-patient.model';
 import { PatientController } from './patient.controller';
+import { DatabaseModule } from '../database/database.module';
 
 @Module({
   providers: [PatientService],
@@ -35,7 +36,7 @@ export class PatientModule {
   static usingDatabase() {
     return {
       module: PatientModule,
-      imports: [SequelizeModule.forFeature([SequelizePatient])],
+      imports: [DatabaseModule, SequelizeModule.forFeature([SequelizePatient])],
       providers: [
         sequelizeSavePatientRepositoryProvider,
         sequelizePatientByIdRepositoryProvider,

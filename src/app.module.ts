@@ -2,11 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppointmentService } from './appointment/appointment.service';
-import { DatabaseModule } from './database/database.module';
 import { PatientModule } from './patient/patient.module';
 
 @Module({
-  imports: [DatabaseModule, PatientModule.usingDatabase(), DatabaseModule],
+  imports: [PatientModule.usingDatabase()],
   controllers: [AppController],
   providers: [AppService, AppointmentService],
 })

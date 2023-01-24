@@ -7,9 +7,10 @@ import { ClearPatientsRepository } from './repositories/clear-patients.repositor
 describe('PatientService', () => {
   let service: PatientService;
   let clearPatientsRepository: ClearPatientsRepository;
+  let module: TestingModule;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    module = await Test.createTestingModule({
       imports: [PatientModule.inMemory()],
     }).compile();
 
@@ -19,6 +20,7 @@ describe('PatientService', () => {
 
   afterEach(async () => {
     await clearPatientsRepository.clear();
+    await module.close();
   });
 
   it('should be defined', () => {
