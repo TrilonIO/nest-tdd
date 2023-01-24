@@ -79,5 +79,24 @@ describe('AppController (e2e)', () => {
         email: 'john@doe.com',
       });
     });
+
+    test('The email must be unique', async () => {
+      await request(app.getHttpServer()).post('/patients').send({
+        name: 'John Doe',
+        email: 'john@doe.com',
+      });
+
+      const response = await request(app.getHttpServer())
+        .post('/patients')
+        .send({
+          name: 'Other John Doe',
+          email: 'john@doe.com',
+        });
+
+      expect(response.statusCode).toBe(HttpStatus.CONFLICT);
+      expect(response.body).toEqual({
+        error: 'Email john@doe.com is already in use',
+      });
+    });
   });
 });
