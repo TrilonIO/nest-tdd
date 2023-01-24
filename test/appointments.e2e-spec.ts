@@ -129,5 +129,39 @@ describe('Appointments (e2e)', () => {
           error: `Patient with id ${nonenxistentPatientId} does not exist`,
         });
     });
+
+    test('An unconfirmed appointment must be scheduled on success', async () => {
+      // Arrange
+      const createPatientResponse = await request(app.getHttpServer())
+        .post('/patients')
+        .send({
+          name: 'John Doe',
+          email: 'john@doe.com',
+        });
+
+      const patientId = createPatientResponse.body.id;
+
+      const newAppointmentData = {
+        startTime: new Date(),
+        endTime: new Date(),
+        patientId,
+      };
+
+      // Act
+      return (
+        request(app.getHttpServer())
+          .post('/appointments')
+          .send(newAppointmentData)
+
+          // Assert
+          .expect(201)
+          .expect({
+            startTime: newAppointmentData.startTime.toISOString(),
+            endTime: newAppointmentData.endTime.toISOString(),
+            patientId,
+            confirmed: false,
+          })
+      );
+    });
   });
 });

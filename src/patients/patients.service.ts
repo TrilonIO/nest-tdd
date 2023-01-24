@@ -28,4 +28,8 @@ export class PatientsService {
 
     return newPatient;
   }
+
+  public async getPatientById(id: number) {
+    return this.patients.find((patient) => patient.id === id);
+  }
 }
