@@ -25,6 +25,7 @@ describe('Appointments (e2e)', () => {
         .send({
           startTime: null,
           endTime: new Date(),
+          patientId: 1,
         })
         .expect(400)
         .expect({
@@ -40,6 +41,7 @@ describe('Appointments (e2e)', () => {
         .send({
           startTime: 'not-a-date',
           endTime: new Date(),
+          patientId: 1,
         })
         .expect(400)
         .expect({
@@ -55,6 +57,7 @@ describe('Appointments (e2e)', () => {
         .send({
           startTime: new Date(),
           endTime: null,
+          patientId: 1,
         })
         .expect(400)
         .expect({
@@ -70,6 +73,7 @@ describe('Appointments (e2e)', () => {
         .send({
           startTime: new Date(),
           endTime: 'not-a-date',
+          patientId: 1,
         })
         .expect(400)
         .expect({
@@ -85,11 +89,27 @@ describe('Appointments (e2e)', () => {
         .send({
           startTime: new Date(),
           endTime: new Date('2020-01-01'),
+          patientId: 1,
         })
         .expect(400)
         .expect({
           errors: {
             body: ['startTime must be before endTime'],
+          },
+        });
+    });
+
+    test('A patient identifier must be provided', async () => {
+      return request(app.getHttpServer())
+        .post('/appointments')
+        .send({
+          startTime: new Date(),
+          endTime: new Date(),
+        })
+        .expect(400)
+        .expect({
+          errors: {
+            body: ['patientId must be a number'],
           },
         });
     });

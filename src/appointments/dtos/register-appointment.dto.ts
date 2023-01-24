@@ -1,4 +1,4 @@
-import { IsDateString } from 'class-validator';
+import { IsDateString, IsInt, IsNumber } from 'class-validator';
 
 export class RegisterAppointmentDto {
   @IsDateString(
@@ -16,4 +16,9 @@ export class RegisterAppointmentDto {
     },
   )
   endTime: Date;
+
+  @IsInt({
+    message: 'patientId must be a number',
+  })
+  patientId: number;
 }
