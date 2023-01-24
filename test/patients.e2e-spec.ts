@@ -44,7 +44,7 @@ describe('AppController (e2e)', () => {
         .expect(400)
         .expect({
           errors: {
-            body: ['email is required'],
+            body: ['email must be valid'],
           },
         });
     });

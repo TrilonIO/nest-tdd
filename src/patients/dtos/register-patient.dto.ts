@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class RegisterPatientDto {
   @IsNotEmpty({
@@ -6,8 +6,11 @@ export class RegisterPatientDto {
   })
   public name: string;
 
-  @IsNotEmpty({
-    message: 'email is required',
-  })
+  @IsEmail(
+    {},
+    {
+      message: 'email must be valid',
+    },
+  )
   public email: string;
 }
