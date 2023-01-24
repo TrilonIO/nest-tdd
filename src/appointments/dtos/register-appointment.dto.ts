@@ -1,7 +1,7 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsDate } from 'class-validator';
 
 export class RegisterAppointmentDto {
-  @IsNotEmpty({
+  @IsDate({
     message: 'startTime must be a valid date',
   })
   startTime: Date;

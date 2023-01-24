@@ -19,11 +19,26 @@ describe('Appointments (e2e)', () => {
   });
 
   describe('when registering a new appointment', () => {
-    test('Start times is required', async () => {
+    test('Start time is required', async () => {
       return request(app.getHttpServer())
         .post('/appointments')
         .send({
           startTime: null,
+          endTime: new Date(),
+        })
+        .expect(400)
+        .expect({
+          errors: {
+            body: ['startTime must be a valid date'],
+          },
+        });
+    });
+
+    test('Start time must be a valid Date', async () => {
+      return request(app.getHttpServer())
+        .post('/appointments')
+        .send({
+          startTime: 'not-a-date',
           endTime: new Date(),
         })
         .expect(400)
