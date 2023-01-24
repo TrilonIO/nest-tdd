@@ -49,6 +49,21 @@ describe('AppController (e2e)', () => {
         });
     });
 
+    test('The email must be valid', () => {
+      return request(app.getHttpServer())
+        .post('/patients')
+        .send({
+          name: 'John Doe',
+          email: 'john@doe',
+        })
+        .expect(400)
+        .expect({
+          errors: {
+            body: ['email must be valid'],
+          },
+        });
+    });
+
     test('A new patient is created on success', async () => {
       const response = await request(app.getHttpServer())
         .post('/patients')
