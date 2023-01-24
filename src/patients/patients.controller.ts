@@ -1,9 +1,10 @@
 import { Body, ConflictException, Controller, Post } from '@nestjs/common';
 import { RegisterPatientDto } from './dtos';
+import { PatientModel } from './patient.model';
 
 @Controller('patients')
 export class PatientsController {
-  private readonly patients: any[] = [];
+  private readonly patients: PatientModel[] = [];
   @Post()
   public async registerPatient(
     @Body() registerPatientInput: RegisterPatientDto,
