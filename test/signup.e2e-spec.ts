@@ -38,5 +38,23 @@ describe('Signup (e2e)', () => {
         });
       },
     );
+
+    test('name be a string', async () => {
+      const requestBody = {
+        email: 'john@doe.com',
+        name: 123,
+        password: 'password',
+        passwordConfirmation: 'password',
+      };
+
+      const response = await request(app.getHttpServer())
+        .post('/signup')
+        .send(requestBody);
+
+      expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+      expect(response.body).toEqual({
+        errors: ['name must be a string'],
+      });
+    });
   });
 });
