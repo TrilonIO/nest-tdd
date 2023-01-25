@@ -81,5 +81,23 @@ describe('Signup (e2e)', () => {
         errors: ['password and passwordConfirmation must match'],
       });
     });
+
+    test('email must be valid', async () => {
+      const requestBody = {
+        email: 'invalidEmail',
+        name: 'John Doe',
+        password: 'password',
+        passwordConfirmation: 'password',
+      };
+
+      const response = await request(app.getHttpServer())
+        .post('/signup')
+        .send(requestBody);
+
+      expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+      expect(response.body).toEqual({
+        errors: ['email must be a valid email address'],
+      });
+    });
   });
 });
