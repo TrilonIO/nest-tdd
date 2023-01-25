@@ -4,6 +4,8 @@ import { BadRequestException, Controller, Post } from '@nestjs/common';
 export class SignupController {
   @Post()
   public async signup() {
-    throw new BadRequestException();
+    throw new BadRequestException({
+      errors: ['email is required'],
+    });
   }
 }

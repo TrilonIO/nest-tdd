@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 
@@ -16,15 +16,17 @@ describe('Signup (e2e)', () => {
   });
 
   describe('[POST] /signup', () => {
-    test('email is required', () => {
-      return request(app.getHttpServer())
-        .post('/signup')
-        .send({
-          name: 'John Doe',
-          password: 'password',
-          passwordConfirmation: 'anotherPassword',
-        })
-        .expect(400);
+    test('email is required', async () => {
+      const response = await request(app.getHttpServer()).post('/signup').send({
+        name: 'John Doe',
+        password: 'password',
+        passwordConfirmation: 'anotherPassword',
+      });
+
+      expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+      expect(response.body).toEqual({
+        errors: ['email is required'],
+      });
     });
   });
 });
