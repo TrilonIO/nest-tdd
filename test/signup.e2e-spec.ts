@@ -63,5 +63,23 @@ describe('Signup (e2e)', () => {
         });
       },
     );
+
+    test('password and passwordConfirmation must match', async () => {
+      const requestBody = {
+        email: 'john@doe.com',
+        name: 'John Doe',
+        password: 'password',
+        passwordConfirmation: 'notTheSamePassword',
+      };
+
+      const response = await request(app.getHttpServer())
+        .post('/signup')
+        .send(requestBody);
+
+      expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+      expect(response.body).toEqual({
+        errors: ['password and passwordConfirmation must match'],
+      });
+    });
   });
 });
