@@ -16,11 +16,10 @@ describe('Signup (e2e)', () => {
   });
 
   describe('[POST] /signup', () => {
-    it('should return 400 when password and confirmation dont match', () => {
+    test('email is required', () => {
       return request(app.getHttpServer())
         .post('/signup')
         .send({
-          email: 'some-email@example.com',
           name: 'John Doe',
           password: 'password',
           passwordConfirmation: 'anotherPassword',
