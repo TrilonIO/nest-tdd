@@ -99,5 +99,25 @@ describe('Signup (e2e)', () => {
         errors: ['email must be a valid email address'],
       });
     });
+
+    test('A new account must be created on success', async () => {
+      const requestBody = {
+        email: 'john@doe.com',
+        name: 'John Doe',
+        password: 'password',
+        passwordConfirmation: 'password',
+      };
+
+      const response = await request(app.getHttpServer())
+        .post('/signup')
+        .send(requestBody);
+
+      expect(response.status).toBe(HttpStatus.CREATED);
+      expect(response.body).toEqual({
+        id: expect.any(Number),
+        email: requestBody.email,
+        name: requestBody.name,
+      });
+    });
   });
 });

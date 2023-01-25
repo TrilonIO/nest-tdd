@@ -17,5 +17,11 @@ export class SignupController {
         errors: ['email must be a valid email address'],
       });
     }
+
+    return {
+      id: 1,
+      email: signupDto.email,
+      name: signupDto.name,
+    };
   }
 }
