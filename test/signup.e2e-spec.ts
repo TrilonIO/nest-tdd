@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import { setupApp } from '../src/setup.app';
 
 describe('Signup (e2e)', () => {
   let app: INestApplication;
@@ -12,6 +13,7 @@ describe('Signup (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    setupApp(app);
     await app.init();
   });
 
@@ -34,27 +36,32 @@ describe('Signup (e2e)', () => {
 
         expect(response.status).toBe(HttpStatus.BAD_REQUEST);
         expect(response.body).toEqual({
-          errors: [`${missingField} is required`],
+          errors: [`${missingField} must be a string`],
         });
       },
     );
 
-    test('name be a string', async () => {
-      const requestBody = {
-        email: 'john@doe.com',
-        name: 123,
-        password: 'password',
-        passwordConfirmation: 'password',
-      };
+    test.each(['email', 'name', 'password', 'passwordConfirmation'])(
+      `%s must be a string`,
+      async (field) => {
+        const requestBody = {
+          email: 'john@doe.com',
+          name: 'John Doe',
+          password: 'password',
+          passwordConfirmation: 'password',
+        };
 
-      const response = await request(app.getHttpServer())
-        .post('/signup')
-        .send(requestBody);
+        requestBody[field] = 123;
 
-      expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-      expect(response.body).toEqual({
-        errors: ['name must be a string'],
-      });
-    });
+        const response = await request(app.getHttpServer())
+          .post('/signup')
+          .send(requestBody);
+
+        expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+        expect(response.body).toEqual({
+          errors: [`${field} must be a string`],
+        });
+      },
+    );
   });
 });
