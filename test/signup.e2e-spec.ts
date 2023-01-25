@@ -16,56 +16,27 @@ describe('Signup (e2e)', () => {
   });
 
   describe('[POST] /signup', () => {
-    test('email is required', async () => {
-      const response = await request(app.getHttpServer()).post('/signup').send({
-        name: 'John Doe',
-        password: 'password',
-        passwordConfirmation: 'anotherPassword',
-      });
+    test.each(['email', 'name', 'password', 'passwordConfirmation'])(
+      `%s is required`,
+      async (missingField) => {
+        const requestBody = {
+          email: 'john@doe.com',
+          name: 'John Doe',
+          password: 'password',
+          passwordConfirmation: 'password',
+        };
 
-      expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-      expect(response.body).toEqual({
-        errors: ['email is required'],
-      });
-    });
+        delete requestBody[missingField];
 
-    test('name is required', async () => {
-      const response = await request(app.getHttpServer()).post('/signup').send({
-        email: 'john@doe.com',
-        password: 'password',
-        passwordConfirmation: 'anotherPassword',
-      });
+        const response = await request(app.getHttpServer())
+          .post('/signup')
+          .send(requestBody);
 
-      expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-      expect(response.body).toEqual({
-        errors: ['name is required'],
-      });
-    });
-
-    test('password is required', async () => {
-      const response = await request(app.getHttpServer()).post('/signup').send({
-        email: 'john@doe.com',
-        name: 'John Doe',
-        passwordConfirmation: 'anotherPassword',
-      });
-
-      expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-      expect(response.body).toEqual({
-        errors: ['password is required'],
-      });
-    });
-
-    test('passwordConfirmation is required', async () => {
-      const response = await request(app.getHttpServer()).post('/signup').send({
-        email: 'john@doe.com',
-        name: 'John Doe',
-        password: 'password',
-      });
-
-      expect(response.status).toBe(HttpStatus.BAD_REQUEST);
-      expect(response.body).toEqual({
-        errors: ['passwordConfirmation is required'],
-      });
-    });
+        expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+        expect(response.body).toEqual({
+          errors: [`${missingField} is required`],
+        });
+      },
+    );
   });
 });
