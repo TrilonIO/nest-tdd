@@ -16,6 +16,12 @@ export class SignupController {
       });
     }
 
+    if (!signupDto.passwordConfirmation) {
+      throw new BadRequestException({
+        errors: ['passwordConfirmation is required'],
+      });
+    }
+
     throw new BadRequestException({
       errors: ['email is required'],
     });
