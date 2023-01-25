@@ -9,6 +9,13 @@ export class SignupController {
         errors: ['name is required'],
       });
     }
+
+    if (!signupDto.password) {
+      throw new BadRequestException({
+        errors: ['password is required'],
+      });
+    }
+
     throw new BadRequestException({
       errors: ['email is required'],
     });

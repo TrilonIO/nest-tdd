@@ -41,5 +41,18 @@ describe('Signup (e2e)', () => {
         errors: ['name is required'],
       });
     });
+
+    test('password is required', async () => {
+      const response = await request(app.getHttpServer()).post('/signup').send({
+        email: 'john@doe.com',
+        name: 'John Doe',
+        passwordConfirmation: 'anotherPassword',
+      });
+
+      expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+      expect(response.body).toEqual({
+        errors: ['password is required'],
+      });
+    });
   });
 });
